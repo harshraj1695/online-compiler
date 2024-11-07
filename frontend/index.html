@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online C/C++ Compiler</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Online C/C++ Compiler</h1>
+    <textarea id="code" placeholder="Write your C/C++ code here..."></textarea>
+    <button onclick="runCode()">Run Code</button>
+    <div id="output"></div>
+  </div>
+  <script>
+    async function runCode() {
+      const code = document.getElementById("code").value;
+      const response = await fetch("http://localhost:3000/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const result = await response.json();
+      document.getElementById("output").innerText = result.output || result.error;
+    }
+  </script>
+</body>
+</html>

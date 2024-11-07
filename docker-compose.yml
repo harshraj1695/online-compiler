@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    command: "node index.js"
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - compiler
+  
+  compiler:
+    build: ./backend
+    volumes:
+      - ./backend/sandbox:/sandbox
+    command: "/bin/bash"
